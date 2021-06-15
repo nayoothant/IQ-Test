@@ -10,13 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_072734) do
+ActiveRecord::Schema.define(version: 2021_06_14_104831) do
+
+  create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "answer", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "users_id", null: false
+    t.bigint "questions_id", null: false
+    t.index ["questions_id"], name: "index_answers_on_questions_id"
+    t.index ["users_id"], name: "index_answers_on_users_id"
+  end
+
+  create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "question_group", null: false
+    t.integer "question_type", null: false
+    t.text "question_text", null: false
+    t.string "choice_one"
+    t.string "choice_two"
+    t.string "choice_three"
+    t.string "choice_four"
+    t.string "choice_five"
+    t.integer "right_answer", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "questionNo", null: false
+    t.text "description"
+    t.string "duration"
+  end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
-    t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "phone"
+    t.integer "status"
   end
 
+  add_foreign_key "answers", "questions", column: "questions_id"
+  add_foreign_key "answers", "users", column: "users_id"
 end
