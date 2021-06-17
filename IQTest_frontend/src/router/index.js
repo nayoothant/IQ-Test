@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
+import UserCreate from "../pages/user/UserCreate";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -17,6 +18,11 @@ const routes = [
         path: "/users",
         name: "user-list",
         component: UserList,
+    },
+    {
+        path: "/createuser",
+        name: "create_user",
+        component: UserCreate,
     }
 ];
 

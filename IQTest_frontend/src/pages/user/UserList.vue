@@ -12,4 +12,3 @@
 
 <script src="../../services/user/user_list.js">
 </script>
-

@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     actions: {
         login({ commit }, credentials) {
-            return axios.post("/auth/login", credentials).then(({ data }) => {
+            return axios.post("/login", credentials).then(({ data }) => {
                 commit("setUserData", data);
             });
         },
@@ -27,6 +27,11 @@ export default new Vuex.Store({
                 commit("setUserData", null);
             });
         },
+        create({ commit }, credentials) {
+            return axios.post("/users", credentials).then(({ data }) => {
+                commit("setUserData", data);
+            })
+        }
     },
     getters: {
         isLoggedIn: (state) => !!state.user,

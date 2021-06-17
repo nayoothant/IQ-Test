@@ -27,7 +27,7 @@
                                 </v-list-item>
                             </v-list>
                         </v-menu>
-                        <router-link class="route-link" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link>
+                        <!-- <router-link class="route-link" :to="{ name: 'login' }" v-if="!isLoggedIn">Login</router-link> -->
                     </div>
                 </v-row>
             </v-container>
