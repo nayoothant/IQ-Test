@@ -12,6 +12,7 @@ Vue.prototype.$axios = axios;
 Vue.prototype.$store = store;
 Vue.prototype.moment = moment;
 new Vue({
+    el: '#app',
     router,
     store,
     vuetify,

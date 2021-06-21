@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
+import QuestionList from "../pages/question/QuestionList";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -23,6 +24,11 @@ const routes = [
         path: "/createuser",
         name: "create_user",
         component: UserCreate,
+    },
+    {
+        path: "/questionList",
+        name: "question-list",
+        component: QuestionList,
     }
 ];
 

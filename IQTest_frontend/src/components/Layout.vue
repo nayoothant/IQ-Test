@@ -37,10 +37,8 @@
         </v-container>
     </v-card>
 </v-app>
+    <v-app>
+        <router-view></router-view>
+    </v-app>
 </template>
 
-<script src="../services/components/layout.js">
-</script>
-
-<style scoped src="../assets/css/components/layout.css">
-</style>
