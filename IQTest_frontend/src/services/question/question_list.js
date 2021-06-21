@@ -56,7 +56,6 @@ export default {
     this.$axios
         .get("questions/question_list")
         .then((response) => {
-            console.log(response)
             this.questionList = response.data;
         })
         .catch((err) => {
@@ -75,7 +74,6 @@ export default {
             .then((response) => {
                 this.questionListVisible = true;
                 this.questionInfoList = response.data;
-                console.log(response)
             })
             .catch((err) => {
                 console.log(err);
