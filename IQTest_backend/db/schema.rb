@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_104831) do
+ActiveRecord::Schema.define(version: 2021_06_15_090717) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "answer", null: false
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_104831) do
   end
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "question_group", null: false
-    t.integer "question_type", null: false
+    t.string "question_group", null: false
+    t.string "question_type", null: false
     t.text "question_text", null: false
     t.string "choice_one"
     t.string "choice_two"

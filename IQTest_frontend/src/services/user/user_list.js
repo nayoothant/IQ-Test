@@ -24,7 +24,7 @@ export default {
         
         this.$axios
             .get("/users")
-            .then((response) => {                
+            .then((response) => {
                 this.userList = response.data;
             })
             .catch((err) => {

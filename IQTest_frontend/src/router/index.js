@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
+import QuestionList from "../pages/question/QuestionList";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -17,7 +18,12 @@ const routes = [
         path: "/users",
         name: "user-list",
         component: UserList,
-    }
+    },
+    {
+        path: "/questionList",
+        name: "question-list",
+        component: QuestionList,
+    },
 ];
 
 const router = new VueRouter({
