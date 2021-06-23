@@ -11,6 +11,10 @@ class QuestionDao
         def get_question_info(questionGroup, questionType)
             @questions = Question.where(question_group: questionGroup, question_type: questionType)
         end
+
+        def get_questions_group(question_group)
+            @questions = Question.where(question_group: question_group)
+        end
     end
-    
+
 end

@@ -19,6 +19,11 @@ class QuestionsController < ApplicationController
         render json: @questionTypes
     end
 
+    def get_questions
+        @question_group = params[:question_group]
+        render json: QuestionService.get_questions_group(@question_group)
+    end
+
     private
     def question_params
         params.require(:question).permit(:question_group, :question_type, :question_text, :choice_one, :choice_two, :choice_three, :choice_four, :choice_five, :right_answer, :questionNo, :description, :duration)

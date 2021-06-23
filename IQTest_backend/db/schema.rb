@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_110657) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-ActiveRecord::Schema.define(version: 2021_06_15_090717) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "answer", null: false

@@ -26,7 +26,7 @@ export default {
                 })
                 .then(() => {
                     this.error = "";
-                    this.$router.push({ name: "user-list" });
+                    this.$router.push({ name: 'answer-page' });
                 })
                 .catch(err => {
                     this.error = err.response.data.errors.message;

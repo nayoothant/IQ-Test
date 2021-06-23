@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" max-width="344">
+    <v-card class="mx-auto" width="600">
     <v-card-title>
         <span class="title font-weight-light">Form</span>
     </v-card-title>
@@ -23,7 +23,7 @@
             </div>
         </v-card-actions>
     </v-form>
-</v-card>
+    </v-card>
 </template>
 
 <script src="../../services/user/create_user.js">

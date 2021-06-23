@@ -5,6 +5,7 @@ import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import QuestionList from "../pages/question/QuestionList";
+import AnswerPage from "../pages/answer/AnswerPage";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -29,6 +30,11 @@ const routes = [
         path: "/questionList",
         name: "question-list",
         component: QuestionList,
+    },
+    {
+        path: "/answerpage",
+        name: "answer-page",
+        component: AnswerPage,
     }
 ];
 
