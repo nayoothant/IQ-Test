@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2021_06_17_110657) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+ActiveRecord::Schema.define(version: 2021_06_23_032037) do
+
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "answer", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -33,17 +35,13 @@ ActiveRecord::Schema.define(version: 2021_06_17_110657) do
     t.string "question_group", null: false
     t.string "question_type", null: false
     t.text "question_text", null: false
-    t.string "choice_one"
-    t.string "choice_two"
-    t.string "choice_three"
-    t.string "choice_four"
-    t.string "choice_five"
-    t.integer "right_answer", null: false
+    t.string "right_answer", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "questionNo", null: false
     t.text "description"
     t.string "duration"
+    t.json "answer_choice", null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

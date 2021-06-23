@@ -6,6 +6,7 @@ import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import QuestionList from "../pages/question/QuestionList";
 import AnswerPage from "../pages/answer/AnswerPage";
+import QuestionCreate from "../pages/question/QuestionCreate";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -30,6 +31,14 @@ const routes = [
         path: "/questionList",
         name: "question-list",
         component: QuestionList,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: "/questionCreate",
+        name: "question-create",
+        component: QuestionCreate,
     },
     {
         path: "/answerpage",

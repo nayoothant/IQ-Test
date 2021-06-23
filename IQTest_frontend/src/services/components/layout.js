@@ -1,7 +1,11 @@
 import { mapGetters } from "vuex";
+import SideBar from "/src/components/SideBar";
 import constants from "../../constants";
 
 export default {
+    components: {
+        SideBar
+    },
     data() {
         return {
             title: constants.APP_TITLE,
@@ -19,7 +23,8 @@ export default {
             this.$store
                 .dispatch("logout")
                 .then(() => {
-                    this.$router.push({ name: "login" });
+                    
+                    
                 })
                 .catch((err) => {
                     console.log(err);

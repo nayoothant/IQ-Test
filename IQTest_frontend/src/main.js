@@ -11,6 +11,8 @@ Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.prototype.$store = store;
 Vue.prototype.moment = moment;
+
+export const bus = new Vue();
 new Vue({
     el: '#app',
     router,
