@@ -1,4 +1,5 @@
 import QuestionDetail from "/src/pages/question/QuestionDetail.vue";
+import { bus } from "/src/main";
 export default {
     name: 'QuestionList',
     components: {
@@ -8,7 +9,6 @@ export default {
         return {
             qstGroup: "",
             qstType: "",
-            questionList: [],
             questionTypeList: [],
             questionInfoList: [],
             questionListVisible: false,
@@ -26,23 +26,23 @@ export default {
                 },
                 {
                     text: "Choice One",
-                    value: "choice_one"
+                    value: "answer_choice.choice_1"
                 },
                 {
                     text: "Choice Two",
-                    value: "choice_two"
+                    value: "answer_choice.choice_2"
                 },
                 {
                     text: "Choice Three",
-                    value: "choice_three"
+                    value: "answer_choice.choice_3"
                 },
                 {
                     text: "Choice Four",
-                    value: "choice_Four"
+                    value: "answer_choice.choice_4"
                 },
                 {
                     text: "Choice Five",
-                    value: "choice_five"
+                    value: "answer_choice.choice_5"
                 },
                 {
                     text: "Created At",
@@ -51,29 +51,18 @@ export default {
             ],
         };
     },
-    created() {
-        
-    this.$axios
-        .get("questions/question_list")
-        .then((response) => {
-            this.questionList = response.data;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    },
     methods: {
         getQuestionInfo(payload) {
-            this.qstGroup = payload.question_group
-            this.qstType = payload.question_type
-            this.$axios
-            .post("questions/get_question_info", {
-                questionGroup: payload.question_group,
-                questionType: payload.question_type
+            this.qstGroup = payload.qstGroup
+            this.qstType = payload.qstType
+            this.$store.dispatch("getQuestionInfo", {
+                questionGroup: payload.qstGroup,
+                questionType: payload.qstType
             })
-            .then((response) => {
+            .then(() => {
+                const state = this.$store.state.QuestionListStore
+                this.questionInfoList = state.questionInfoList;
                 this.questionListVisible = true;
-                this.questionInfoList = response.data;
             })
             .catch((err) => {
                 console.log(err);
@@ -85,23 +74,16 @@ export default {
         },
         closeButtonClick() {
             this.detailPopupVisible = false
+        },
+        goToQuestionCreate() {
+            this.$router.push({ name: "question-create" });
         }
     },
-    updated() {
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
-            });
-        }
-    }
+    created() {
+        bus.$on("qstInfo", (payload) => {
+            this.getQuestionInfo(payload)
+        })
+        this.getQuestionInfo(this.$route.params)
+    },
 };
 

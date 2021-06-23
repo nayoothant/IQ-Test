@@ -1,5 +1,5 @@
 <template>
-<div id="myModal" class="modal" v-if='isVisible'>
+<div id="myModal" class="modal" v-if='isVisible' @click="closeButtonClick()">
 
   <!-- Modal content -->
   <div class="modal-header">
@@ -9,36 +9,13 @@
   <div class="modal-content">
     <p>{{ questionDetail.question_text }}</p>
     <v-radio-group v-model="isRightAnswer">
-        <v-radio v-if='isChoiceOneExist'
-        :key="1"
-        :value="1"
+        <v-radio
+        v-for="(item,index) in questionDetail.answer_choice"
+        :key="index"
+        :value="index"
         :disabled="true">
-            <template slot="label">{{ questionDetail.choice_one }}</template>
+            <template slot="label">{{ item }}</template>
         </v-radio>
-        <v-radio v-if='isChoiceTwoExist'
-        :key="2"
-        :value="2"
-        :disabled="true">
-            <template slot="label">{{ questionDetail.choice_two }}</template>
-        </v-radio>
-        <v-radio v-if='isChoiceThreeExist'
-        :key="3"
-        :value="3"
-        :disabled="true">
-            <template slot="label">{{ questionDetail.choice_three }}</template>
-        </v-radio> 
-        <v-radio v-if='isChoiceFourExist'
-        :key="4"
-        :value="4"
-        :disabled="true">
-            <template slot="label">{{ questionDetail.choice_four }}</template>
-        </v-radio> 
-        <v-radio v-if='isChoiceFiveExist'
-        :key="2"
-        :value="2"
-        :disabled="true">
-            <template slot="label">{{ questionDetail.choice_five }}</template>
-        </v-radio>  
     </v-radio-group>
   </div>
   <div class="modal-footer">

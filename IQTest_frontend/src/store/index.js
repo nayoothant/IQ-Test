@@ -2,12 +2,20 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
+import SideBarStore from "/src/store/sidebar";
+import QuestionListStore from "/src/store/question_list";
 
 Vue.use(Vuex);
 
 axios.defaults.baseURL = "http://localhost:3000";
 
+const modules = {
+    SideBarStore,
+    QuestionListStore
+  }
+
 export default new Vuex.Store({
+    modules,
     state: {
         user: null,
     },
