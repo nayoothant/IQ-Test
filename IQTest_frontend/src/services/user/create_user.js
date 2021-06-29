@@ -29,7 +29,7 @@ export default {
                     this.$router.push({ name: 'answer-page' });
                 })
                 .catch(err => {
-                    this.error = err.response.data.errors.message;
+                    this.error = err.response.data.errors;
                     console.log(err);
                 });
         }

@@ -20,6 +20,10 @@ export default {
                 {
                     text: "Phone",
                     value: "phone",
+                },
+                {
+                    text: "Mark",
+                    value: "marks"
                 }
             ],
         };

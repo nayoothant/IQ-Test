@@ -18,18 +18,20 @@ class UsersController < ApplicationController
   # params: user form
   # POST /users
   def create
-    is_save = UsersService.create_user(user_params)
+    @user = UsersService.create_user(user_params)
 
-    if is_save
+    if @user
       render json: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    @user_id = params[:userId]
+    @user = UsersService.update_user(@user_id)
+    if @user
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -49,6 +51,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :updated_at, :name, :phone, :status)
+      params.require(:user).permit(:email, :updated_at, :name, :phone, :status, :marks)
     end
 end

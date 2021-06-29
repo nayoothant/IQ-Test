@@ -16,4 +16,10 @@ Rails.application.routes.draw do
 
     end
   end
+
+  resources :answers do
+    collection do
+      post :store_answers, to: "answers#store_answers"
+    end
+  end
 end

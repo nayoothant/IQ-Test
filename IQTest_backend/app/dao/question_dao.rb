@@ -13,7 +13,7 @@ class QuestionDao
         end
 
         def get_questions_group(question_group)
-            @questions = Question.where(question_group: question_group)
+            @questions = Question.select("id, question_group, question_type, question_text, answer_choice, questionNo, description, duration").where(question_group: question_group).group_by(&:question_type).values
         end
     end
 
