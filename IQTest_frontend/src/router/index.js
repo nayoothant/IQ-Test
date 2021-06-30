@@ -7,6 +7,7 @@ import UserCreate from "../pages/user/UserCreate";
 import QuestionList from "../pages/question/QuestionList";
 import AnswerPage from "../pages/answer/AnswerPage";
 import QuestionCreate from "../pages/question/QuestionCreate";
+import AnswerIndex from "../pages/answer/Index";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -44,6 +45,11 @@ const routes = [
         path: "/answerpage",
         name: "answer-page",
         component: AnswerPage,
+    },
+    {
+        path: "/answerIndex",
+        name: "answer-index",
+        component: AnswerIndex,
     }
 ];
 

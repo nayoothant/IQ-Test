@@ -4,42 +4,64 @@ export default {
   data() {
     return {
       valid: true,
-      question: [],
-      description: "",
-      questVisiable: false,
-      desVisiable: true,
+      questionGroup: [],
+      questionVisiable: false,
+      descriptionVisiable: true,
       userChoice: {},
       duration: "",
-      minutes: 0,
-      secondes: 0,
-      time: 0,
-      timer: null,
+      description: [],
+      question: [],
+      countDown: "",
+      indexByType: "",
     };
   },
   mounted() {
-    const questionGroup = `g-${Math.floor(Math.random() * 3) + 1}`;
+    // const questionGroup = `g-${Math.floor(Math.random() * 3) + 1}`;
     this.$axios
       .get("questions/get_questions", {
-        params: { question_group: questionGroup },
+        params: { question_group: "g-2" },
       })
       .then((response) => {
-        this.question = response.data;
-        console.log(this.question);
+        this.questionGroup = response.data;
+        for (let index = 0; index < this.questionGroup.length; index++) {
+          this.description.push(this.questionGroup[index][0].description);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   },
   methods: {
-    startAnswer() {
-      this.desVisiable = false;
-      this.questVisiable = true;
+    startAnswer(questionByType, typeIdx) {
+      this.descriptionVisiable = false;
+      this.questionVisiable = true;
+      this.question = questionByType;
+      this.indexByType = typeIdx;
+      this.countDown = this.question[0].duration * 60;
+      this.countDownTimer();
+    },
+    countDownTimer(){
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 1000);
+      } else {
+        document.getElementById('thebutton').click();
+      }
     },
     /**
      * This to submit create user form.
      * @returns void
      */
     storeAnswer() {
+      this.descriptionVisiable = true;
+      this.questionVisiable = false;
+      console.log(this.indexByType);
+      this.questionGroup.splice(this.indexByType, 1);
+      if (this.questionGroup.length === 0) {
+        this.$router.push({ name: 'answer-index' });
+      }
       this.$store
         .dispatch("storeAnswer", {
           userChoiceData: this.userChoice,

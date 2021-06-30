@@ -3,25 +3,25 @@
     <v-card-title>
       <span class="title font-weight-light">Question</span>
     </v-card-title>
-    <v-container fluid v-if="desVisiable">
-      <v-textarea
-        name="question"
-        filled
-        auto-grow
-        :value="`${description}`"
-      ></v-textarea>
-      <v-btn small color="primary" @click="startAnswer">Start</v-btn>
-    </v-container>
-    <v-form
-      ref="form"
-      v-model="valid"
-      @submit.prevent="storeAnswer"
-      v-if="questVisiable"
-    >
 
-      <div v-for="(item_by_type, qtype) in question" :key="qtype">
+    <v-form ref="form" v-model="valid" @submit.prevent="storeAnswer">
+      <div v-for="(itemByType, typeIdx) in questionGroup" :key="typeIdx">
+        <v-container fluid v-if="descriptionVisiable">
+          <v-textarea
+            name="question"
+            filled
+            auto-grow
+            :value="`${description[typeIdx]}`"
+          ></v-textarea>
+          <v-btn small color="primary" @click.prevent="startAnswer(itemByType, typeIdx)"
+            >Start</v-btn
+          >
+        </v-container>
+      </div>
+      <div v-if="questionVisiable">
+        <span>{{ countDown }}</span>
         <v-card-text>
-          <div v-for="(item, idx) in item_by_type" :key="idx">
+          <div v-for="(item, idx) in question" :key="idx">
             <v-container fluid>
               <v-textarea
                 name="question"
@@ -41,15 +41,16 @@
             <hr />
           </div>
         </v-card-text>
+
+        <v-card-actions>
+          <div>
+            <v-spacer></v-spacer>
+            <v-btn type="submit" :disabled="!valid" large color="primary" id='thebutton'
+              >Submit</v-btn
+            >
+          </div>
+        </v-card-actions>
       </div>
-      <v-card-actions>
-        <div>
-          <v-spacer></v-spacer>
-          <v-btn type="submit" :disabled="!valid" large color="primary"
-            >Submit</v-btn
-          >
-        </div>
-      </v-card-actions>
     </v-form>
   </v-card>
 </template>
