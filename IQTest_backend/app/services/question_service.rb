@@ -13,8 +13,8 @@ class QuestionService
             @questions = QuestionDao.get_question_info(questionGroup, questionType)
         end
 
-        def get_questions_group(question_group)
-            @questions = QuestionDao.get_questions_group(question_group)
+        def get_questions_group()
+            @questions = QuestionDao.get_questions_group()
         end
     end
 end

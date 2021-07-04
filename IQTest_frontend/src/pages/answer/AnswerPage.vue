@@ -3,23 +3,27 @@
     <v-card-title>
       <span class="title font-weight-light">Question</span>
     </v-card-title>
-
-    <v-form ref="form" v-model="valid" @submit.prevent="storeAnswer">
-      <div v-for="(itemByType, typeIdx) in questionGroup" :key="typeIdx">
-        <v-container fluid v-if="descriptionVisiable">
+    <div v-for="(itemByType, typeIdx) in questionGroup" :key="typeIdx">
+        <v-container fluid v-if="isDescriptionVisiable">
           <v-textarea
             name="question"
             filled
             auto-grow
             :value="`${description[typeIdx]}`"
           ></v-textarea>
-          <v-btn small color="primary" @click.prevent="startAnswer(itemByType, typeIdx)"
+          <v-btn
+            small
+            color="primary"
+            @click.prevent="startAnswer(itemByType, typeIdx)"
             >Start</v-btn
           >
         </v-container>
       </div>
-      <div v-if="questionVisiable">
-        <span>{{ countDown }}</span>
+    <v-form ref="form" v-model="valid" @submit.prevent="storeAnswer">
+      <div v-if="isQuestionVisiable">
+        <v-row justify="center">
+          <v-banner elevation="15"><span id="time">00:00 </span> minutes!</v-banner>
+        </v-row>
         <v-card-text>
           <div v-for="(item, idx) in question" :key="idx">
             <v-container fluid>
@@ -45,7 +49,12 @@
         <v-card-actions>
           <div>
             <v-spacer></v-spacer>
-            <v-btn type="submit" :disabled="!valid" large color="primary" id='thebutton'
+            <v-btn
+              type="submit"
+              :disabled="!valid"
+              large
+              color="primary"
+              id="thebutton"
               >Submit</v-btn
             >
           </div>

@@ -20,8 +20,7 @@ class QuestionsController < ApplicationController
     end
 
     def get_questions
-        @question_group = params[:question_group]
-        render json: QuestionService.get_questions_group(@question_group)
+        render json: QuestionService.get_questions_group()
     end
 
     private

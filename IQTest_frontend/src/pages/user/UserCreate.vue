@@ -1,7 +1,7 @@
 <template>
     <v-card class="mx-auto" width="600">
     <v-card-title>
-        <span class="title font-weight-light">Form</span>
+        <span class="title font-weight-light">Register Form</span>
     </v-card-title>
     <v-form ref="form" v-model="valid" @submit.prevent="create">
         <v-card-text>

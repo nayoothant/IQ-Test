@@ -28,10 +28,11 @@ export default {
                     this.error = "";
                     this.$router.push({ name: 'answer-page' });
                 })
-                .catch(err => {
-                    this.error = err.response.data.errors;
-                    console.log(err);
-                });
+
+                // .catch(err => {
+                //     this.error = err.response.data.errors;
+                //     console.log(err);
+                // });
         }
     }
 };

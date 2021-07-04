@@ -43,13 +43,13 @@ export default new Vuex.Store({
         commit("setUserData", data);
       });
     },
-    storeAnswer({ commit }, credentials) {
-      return axios.post("answers/store_answers", credentials).then(({ data }) => {
+    async storeAnswer({ commit }, credentials) {
+      await axios.post("answers/store_answers", credentials).then(({ data }) => {
         commit("setAnswerData", data);
       });
     },
-    updateUser({ commit }, credentials) {
-      return axios.put(`users/${credentials.userId}`, credentials).then(({ data }) => {
+    async updateUser({ commit }, credentials) {
+      await axios.put(`users/${credentials.userId}`, credentials).then(({ data }) => {
         commit("setAnswerData", data);
       });
     },

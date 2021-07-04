@@ -50,7 +50,7 @@ const routes = [
         path: "/answerIndex",
         name: "answer-index",
         component: AnswerIndex,
-    }
+    },
 ];
 
 const router = new VueRouter({
