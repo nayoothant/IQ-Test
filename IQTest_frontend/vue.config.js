@@ -21,7 +21,7 @@ module.exports = {
         }
     },
     devServer: {
-        proxy: 'https://fcm.googleapis.com/'
+        host: 'localhost'
     },
     transpileDependencies: ["vuetify"]
 }

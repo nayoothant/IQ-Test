@@ -2,8 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import createPersistedState from "vuex-persistedstate";
-import SideBarStore from "/src/store/sidebar";
-import QuestionListStore from "/src/store/question_list";
+import SideBarStore from "/src/store/sidebar_store";
+import QuestionListStore from "/src/store/question_list_store";
+import QuestionCreateStore from "/src/store/question_create_store";
+import QuestionUpdateStore from "/src/store/question_update_store";
+import QuestionDeleteStore from "/src/store/question_delete_store";
 
 Vue.use(Vuex);
 
@@ -11,7 +14,10 @@ axios.defaults.baseURL = "http://localhost:3000";
 
 const modules = {
     SideBarStore,
-    QuestionListStore
+    QuestionListStore,
+    QuestionCreateStore,
+    QuestionUpdateStore,
+    QuestionDeleteStore
   }
 
 export default new Vuex.Store({

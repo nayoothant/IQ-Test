@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="question-create">
-      <h1 class="title">Create Question</h1>
+      <h1 class="title">Update Question</h1>
       <div>
         <v-alert v-model="result" color="success" dismissible>
           Question is created successfully
@@ -11,81 +11,26 @@
         <v-simple-table class="form-table">
           <tbody>
             <tr>
-              <td :rowspan="2">Question Group</td>
+              <td>Question Group</td>
               <td>
                 <v-text-field
                   v-model="qstGroup"
-                  label="New Question Group"
-                  :disabled="newGroupDisable"
-                  :rules="questionGroupRule"
-                  v-on:blur="setQstGroup($event.target.value)"
+                  label="Question Group"
+                  :disabled="true"
                   required
                 ></v-text-field>
               </td>
             </tr>
             <tr>
-              <td>
-                <v-select
-                  v-model="selectGroup"
-                  :items="qstGroupList"
-                  :disabled="oldGroupDisable"
-                  :rules="questionGroupRule"
-                  label="Old Question Group"
-                  :clearable="true"
-                  v-on:change="getQstType"
-                  required
-                ></v-select>
-              </td>
-            </tr>
-            <tr>
-              <td :rowspan="2">Question Type</td>
+              <td>Question Type</td>
               <td>
                 <v-text-field
                   v-model="qstType"
-                  label="New Question Type"
-                  :disabled="newTypeDisable"
-                  :rules="questionTypeRule"
+                  label="Question Type"
+                  :disabled="true"
                   v-on:blur="setNewType($event.target.value)"
                   required
                 ></v-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <v-select
-                  v-model="selectType"
-                  :items="qstTypeList"
-                  :disabled="oldTypeDisable"
-                  :rules="questionTypeRule"
-                  label="Old Question Type"
-                  v-on:change="setOldType"
-                  :clearable="true"
-                  required
-                ></v-select>
-              </td>
-            </tr>
-            <tr v-if="descriptionVisible">
-              <td>Description</td>
-              <td>
-                <v-text-field
-                  v-model="description"
-                  :rules="descriptionRule"
-                  required
-                ></v-text-field>
-              </td>
-            </tr>
-            <tr v-if="durationVisible">
-              <td>Duration</td>
-              <td>
-                <v-text-field
-                  v-model="duration"
-                  type="number"
-                  min="0"
-                  max="60"
-                  @blur="updateDuration"
-                  :rules="durationRule"
-                  required
-                />
               </td>
             </tr>
             <tr>
@@ -101,7 +46,7 @@
             <tr>
               <td>Select Choice Type</td>
               <td>
-                <v-radio-group v-model="choiceType" row>
+                <v-radio-group v-model="choiceType" v-on:change="clearAnswerChoice"  row>
                   <v-radio label="Text" value="text"></v-radio>
                   <v-radio label="Image" value="image"></v-radio>
                 </v-radio-group>
@@ -127,15 +72,15 @@
                 ></v-text-field>
               </td>
             </tr>
-            <tr v-for="i in selectChoiceCount" :key="i+'photo'" colspan="2">
+            <tr v-for="i in selectChoiceCount" :key="i+'photo'">
               <td v-if="choiceTypePhoto">Question Choice {{ i }}</td>
               <td v-if="choiceTypePhoto">
                 <v-file-input
                   accept=".jpg"
                   label="Click here to select a .jpg file"
                   :rules="questionChoiceRule"
-                  v-model="answerChoice['choice' + i]"
                   v-on:change="showImage($event, i)"
+                  v-model="answerChoice['choice' + i]"
                 >
                 </v-file-input>
               </td>
@@ -153,13 +98,22 @@
             </tr>
           </tbody>
         </v-simple-table>
-        <v-btn color="success" @click="createQuestion"> Create </v-btn>
+        <v-btn color="success" @click="updateQuestion()"> Update </v-btn>
       </v-form>
     </div>
   </div>
 </template>
+<style>
+.question-create {
+  margin-left: 200px;
+  padding: 10px;
+}
+.form-table {
+  width: 80%;
+}
+</style>
 
-<script src="../../services/question/question_create.js">
+<script src="../../services/question/question_update.js">
 </script>
-<style scoped src="../../assets/css/pages/question/question-create.css">
+<style scoped src="../../assets/css/pages/question/question-update.css">
 </style>

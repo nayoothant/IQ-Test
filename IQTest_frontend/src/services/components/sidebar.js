@@ -6,10 +6,12 @@ export default {
             questionList: []
         }        
     },
-    async created() {
-        
-        await this.$store.dispatch("getQuestionList");
-        this.questionList = this.$store.state.questionList
+    async created() {        
+        await this.getQuestionList();
+        bus.$on("refreshSideBar", async ()=> {
+            this.questionList = []
+            await this.getQuestionList();
+        })
     },
     methods: {
         setQuestionInfo(question) {
@@ -23,6 +25,10 @@ export default {
                     qstType: question.question_type
                 }})
             }
+        },
+        async getQuestionList() {
+            await this.$store.dispatch("getQuestionList");
+            this.questionList = this.$store.state.SideBarStore.questionList
         }
     },
     updated() {

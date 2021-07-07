@@ -6,11 +6,11 @@ export default {
         qstType: ""
     },
     actions: {
-        async getQuestionList() {
+        async getQuestionList({commit}) {
             await axios
             .get("questions/question_list")
             .then((response) => {
-                this.state.questionList = response.data
+                commit('setQuestionList', response.data)
             })
             .catch((err) => {
                 console.log(err);
@@ -23,8 +23,8 @@ export default {
 
     },
     mutations: {
-        setQuestionList(state, payload) {
-            state.questionList = payload
+        setQuestionList(state, data) {
+            state.questionList = data
         }
     }
 }

@@ -5,6 +5,7 @@ import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
 import QuestionList from "../pages/question/QuestionList";
 import QuestionCreate from "../pages/question/QuestionCreate";
+import QuestionUpdate from "../pages/question/QuestionUpdate";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -33,6 +34,11 @@ const routes = [
         name: "question-create",
         component: QuestionCreate,
     },
+    {
+        path: "/questionUpdate",
+        name: "question-update",
+        component: QuestionUpdate,
+    }
 ];
 
 const router = new VueRouter({

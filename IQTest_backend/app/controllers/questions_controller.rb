@@ -19,8 +19,40 @@ class QuestionsController < ApplicationController
         render json: @questionTypes
     end
 
+    def get_question_type
+        @qstGroup = params[:qstGroup]
+        @questionTypes = QuestionService.get_question_type(@qstGroup)
+        render json: @questionTypes
+    end
+
+    def create_question
+        @qstForm = QuestionForm.new(question_form_params)
+        if @qstForm.valid?
+            isQuestionCreate = QuestionService.create_question(@qstForm)
+            render json: { result: isQuestionCreate }
+        end
+    end
+
+    def update_question
+        
+        @qstForm = QuestionForm.new(question_form_params)
+        if @qstForm.valid?
+            isQuestionUpdate = QuestionService.update_question(@qstForm)
+            render json: { result: isQuestionUpdate }
+        end
+    end
+
+    def delete_question
+        isQuestionDelete = QuestionService.delete_question(params[:id])
+        render json: { result: isQuestionDelete }
+    end
+
     private
     def question_params
-        params.require(:question).permit(:question_group, :question_type, :question_text, :choice_one, :choice_two, :choice_three, :choice_four, :choice_five, :right_answer, :questionNo, :description, :duration)
+        params.require(:question).permit(:id, :qstGroup, :qstType, :qstText, :choiceType, {:answerChoice => [:choice1, :choice2, :choice3, :choice4, :choice5]}, :rightAns, :qstNo, :duration, :description)
+    end
+
+    def question_form_params
+        params.require(:questionForm).permit(:id, :qstGroup, :qstType, :qstText, :choiceType, {:answerChoice => [:choice1, :choice2, :choice3, :choice4, :choice5]}, :rightAns, :qstNo, :duration, :description)
     end
 end

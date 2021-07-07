@@ -1,14 +1,14 @@
 import axios from "axios";
 export default {
     state: {
-        questionInfoList: []
+        result: false,
     },
     actions: {
-        async getQuestionInfo({state},payload) {
+        async deleteQuestion({commit},payload) {
             await axios
-            .post("questions/get_question_info", payload)
+            .post("questions/delete_question", {id: payload})
             .then((response) => {
-                state.questionInfoList = response.data
+                commit('setResult', response.data)
             })
             .catch((err) => {
                 console.log(err);
@@ -17,8 +17,8 @@ export default {
 
     },
     mutations: {
-        setQuestionList(state, payload) {
-            state.questionList = payload
+        setResult(state, data) {
+            state.result = data
         }
     }
 }

@@ -1,9 +1,12 @@
 import QuestionDetail from "/src/pages/question/QuestionDetail.vue";
+import QuestionDeleteAlert from "/src/pages/question/QuestionDeleteAlert.vue";
 import { bus } from "/src/main";
+import constants from "../../constants";
 export default {
     name: 'QuestionList',
     components: {
-        QuestionDetail
+        QuestionDetail,
+        QuestionDeleteAlert
     },
     data() {
         return {
@@ -13,52 +16,19 @@ export default {
             questionInfoList: [],
             questionListVisible: false,
             detailPopupVisible: false,
+            alertPopupVisible: false,
             questionDetail: null,
-            headers: [
-                {
-                    text: "No",
-                    align: "start",
-                    value: "questionNo",
-                },
-                {
-                    text: "Question Text",
-                    value: "question_text",
-                },
-                {
-                    text: "Choice One",
-                    value: "answer_choice.choice_1"
-                },
-                {
-                    text: "Choice Two",
-                    value: "answer_choice.choice_2"
-                },
-                {
-                    text: "Choice Three",
-                    value: "answer_choice.choice_3"
-                },
-                {
-                    text: "Choice Four",
-                    value: "answer_choice.choice_4"
-                },
-                {
-                    text: "Choice Five",
-                    value: "answer_choice.choice_5"
-                },
-                {
-                    text: "Created At",
-                    value: "created_at"
-                },
-            ],
+            headers: constants.HEADER,
         };
     },
     methods: {
-        getQuestionInfo(payload) {
+        async getQuestionInfo(payload) {
             this.qstGroup = payload.qstGroup
             this.qstType = payload.qstType
-            this.$store.dispatch("getQuestionInfo", {
+            await this.$store.dispatch("getQuestionInfo",{ params: {
                 questionGroup: payload.qstGroup,
                 questionType: payload.qstType
-            })
+            }})
             .then(() => {
                 const state = this.$store.state.QuestionListStore
                 this.questionInfoList = state.questionInfoList;
@@ -68,15 +38,28 @@ export default {
                 console.log(err);
             });
         },
-        showQuestionDetail(item) {
-            this.questionDetail = item;
+        getPath(item) {
+            return require('D:/Nay Oo Thant/IQTest/IQTest_backend/public/images/'+ this.qstGroup + '_' + this.qstType + '/' + item)
+        },
+        showQuestionDetail(row, column) {
+            this.questionDetail = column.item;
             this.detailPopupVisible = true;
+        },
+        deleteButtonClicked(item) {
+            this.questionDetail = item;
+            this.alertPopupVisible = true;
         },
         closeButtonClick() {
             this.detailPopupVisible = false
         },
+        closeDeleteAlert() {
+            this.alertPopupVisible = false
+        },
         goToQuestionCreate() {
             this.$router.push({ name: "question-create" });
+        },
+        isImageChoice(item) {
+            return item.choice_type === "image"
         }
     },
     created() {

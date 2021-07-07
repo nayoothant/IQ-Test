@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_032037) do
+ActiveRecord::Schema.define(version: 2021_06_28_104433) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "answer", null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_032037) do
     t.text "description"
     t.string "duration"
     t.json "answer_choice", null: false
+    t.string "choice_type"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
