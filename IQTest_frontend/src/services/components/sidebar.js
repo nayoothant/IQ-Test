@@ -8,6 +8,10 @@ export default {
     },
     async created() {        
         await this.getQuestionList();
+
+    },
+    async mounted() {
+        // await this.getQuestionList();
         bus.$on("refreshSideBar", async ()=> {
             this.questionList = []
             await this.getQuestionList();

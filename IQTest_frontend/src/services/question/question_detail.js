@@ -1,3 +1,5 @@
+import constants from "../../constants"
+
 export default {
     name: 'QuestionDetail',
     // To use props, they must be declared
@@ -26,7 +28,7 @@ export default {
             }})
         },
         getImage(item) {
-            return require('D:/Nay Oo Thant/IQTest/IQTest_backend/public/images/'+ this.questionDetail.question_group + '_' + this.questionDetail.question_type + '/' + item)
+            return constants.ROOT_PATH + this.questionDetail.question_group + '_' + this.questionDetail.question_type + '/' + item
         },
         prevent(event) {
             event.preventDefault();

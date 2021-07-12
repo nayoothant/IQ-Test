@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post :create_question, to: "questions#create_question"
       post :update_question, to: "questions#update_question"
       post :delete_question, to: "questions#delete_question"
+      post :update_question_group, to: "questions#update_question_group"
+      post :delete_group, to: "questions#delete_group"
     end
     member do
       

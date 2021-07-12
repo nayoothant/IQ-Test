@@ -1,12 +1,14 @@
 import QuestionDetail from "/src/pages/question/QuestionDetail.vue";
 import QuestionDeleteAlert from "/src/pages/question/QuestionDeleteAlert.vue";
+import QuestionGroupDeleteAlert from "/src/pages/question/QuestionGroupDeleteAlert.vue";
 import { bus } from "/src/main";
 import constants from "../../constants";
 export default {
     name: 'QuestionList',
     components: {
         QuestionDetail,
-        QuestionDeleteAlert
+        QuestionDeleteAlert,
+        QuestionGroupDeleteAlert
     },
     data() {
         return {
@@ -18,6 +20,7 @@ export default {
             detailPopupVisible: false,
             alertPopupVisible: false,
             questionDetail: null,
+            groupDeletePopupVisible: false,
             headers: constants.HEADER,
         };
     },
@@ -32,14 +35,20 @@ export default {
             .then(() => {
                 const state = this.$store.state.QuestionListStore
                 this.questionInfoList = state.questionInfoList;
-                this.questionListVisible = true;
+                if(this.questionInfoList.length > 0 ) {
+                    this.questionListVisible = true;
+                } else {
+                    if(this.$router.currentRoute.fullPath !== "/") {                        
+                        this.$router.push({path: "/"})
+                    }                    
+                }
             })
             .catch((err) => {
                 console.log(err);
             });
         },
         getPath(item) {
-            return require('D:/Nay Oo Thant/IQTest/IQTest_backend/public/images/'+ this.qstGroup + '_' + this.qstType + '/' + item)
+            return constants.ROOT_PATH + this.qstGroup + '_' + this.qstType + '/' + item
         },
         showQuestionDetail(row, column) {
             this.questionDetail = column.item;
@@ -55,8 +64,23 @@ export default {
         closeDeleteAlert() {
             this.alertPopupVisible = false
         },
+        closeGroupDeleteAlert() {
+            this.groupDeletePopupVisible = false
+        },
+        groupDeleteButtonClicked() {
+            this.groupDeletePopupVisible = true
+        },
         goToQuestionCreate() {
             this.$router.push({ name: "question-create" });
+        },
+        goToQuestionGroupEdit() {
+            this.$router.push({ name: "question-group-edit", params: {
+                id: this.questionInfoList[0].id,
+                qstGroup: this.qstGroup,
+                qstType: this.qstType,
+                description: this.questionInfoList[0].description,
+                duration: this.questionInfoList[0].duration
+            }});
         },
         isImageChoice(item) {
             return item.choice_type === "image"

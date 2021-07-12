@@ -4,7 +4,7 @@
       <h1 class="title">Update Question</h1>
       <div>
         <v-alert v-model="result" color="success" dismissible>
-          Question is created successfully
+          Question is updated successfully
         </v-alert>
       </div>
       <v-form ref="form" v-model="valid" lazy-validation>

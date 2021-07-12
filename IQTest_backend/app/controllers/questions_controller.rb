@@ -33,8 +33,7 @@ class QuestionsController < ApplicationController
         end
     end
 
-    def update_question
-        
+    def update_question        
         @qstForm = QuestionForm.new(question_form_params)
         if @qstForm.valid?
             isQuestionUpdate = QuestionService.update_question(@qstForm)
@@ -45,6 +44,29 @@ class QuestionsController < ApplicationController
     def delete_question
         isQuestionDelete = QuestionService.delete_question(params[:id])
         render json: { result: isQuestionDelete }
+    end
+
+    def delete_group
+        @qstGroup = params[:qstGroup]
+        @qstType = params[:qstType]
+        @isGroupDelete = QuestionService.delete_group(@qstGroup, @qstType)
+        render json: { result: @isGroupDelete }
+    end
+
+    def update_question_group
+        @editForm=params[:qstGroupEditForm]
+        isGroupUpdate = false        
+        @oldQuestion = QuestionService.get_question_by_id(@editForm[:id])
+        @typesOfNewGroup = QuestionService.get_question_type(@editForm[:qstGroup])
+        @typesOfOldGroup = QuestionService.get_question_type(@oldQuestion.question_group)
+        if @typesOfNewGroup.length > 0 && @editForm[:qstGroup] != @oldQuestion.question_group
+            render json: {result: isGroupUpdate, message: Messages::GROUP_EXIST_ERROR_MESSAGE}
+        elsif @typesOfOldGroup.any?{|type| type.question_type == @editForm[:qstType] } && @editForm[:qstType] != @oldQuestion.question_type
+            render json: {result: isGroupUpdate, message: Messages::TYPE_EXIST_ERROR_MESSAGE}
+        else
+            isGroupUpdate = QuestionService.update_question_group(@editForm, @oldQuestion)
+            render json: {result: isGroupUpdate, message: isGroupUpdate ? Messages::SUCCESSFUL_UPDATE_MESSAGE : Messages::UPDATE_ERROR_MESSAGE}
+        end
     end
 
     private

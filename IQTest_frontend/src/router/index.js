@@ -6,6 +6,7 @@ import UserList from "../pages/user/UserList";
 import QuestionList from "../pages/question/QuestionList";
 import QuestionCreate from "../pages/question/QuestionCreate";
 import QuestionUpdate from "../pages/question/QuestionUpdate";
+import QuestionGroupEdit from "../pages/question/QuestionGroupEdit";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -38,6 +39,11 @@ const routes = [
         path: "/questionUpdate",
         name: "question-update",
         component: QuestionUpdate,
+    },
+    {
+        path: "/questionGroupEdit",
+        name: "question-group-edit",
+        component: QuestionGroupEdit,
     }
 ];
 

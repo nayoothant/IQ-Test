@@ -24,6 +24,10 @@ class QuestionDao
             @questions = Question.find(id)
         end
 
+        def get_question_by_group(questionGroup)
+            @questions = Question.where(question_group: questionGroup)
+        end
+
         def update_question(question, questionForm)
             isQuestionUpdate = question.update(
                 'questionNo' => questionForm.qstNo,
@@ -38,7 +42,7 @@ class QuestionDao
             )
         end
 
-        def get_next_question(qstGroup, qstType, qstNo)
+        def get_question_by_qstNo(qstGroup, qstType, qstNo)
             @question = Question.where(question_group: qstGroup, question_type: qstType, questionNo: qstNo)
         end
 
@@ -53,9 +57,24 @@ class QuestionDao
             question.destroy
         end
 
+        def delete_group(qstGroup, qstType)
+            Question.where(question_group: qstGroup, question_type: qstType).destroy_all
+        end
+
         def update_qstNo(question, qstNo)
             isQstNoUpdate = question.update(
                 'questionNo' => qstNo
+            )
+        end
+
+        def update_question_group(question, qstGroup)
+            isGroupUpdate = question.update(
+                'question_group' => qstGroup
+            )
+        end
+        def update_question_Type(question, qstType)
+            isTypeUpdate = question.update(
+                'question_type' => qstType
             )
         end
     end

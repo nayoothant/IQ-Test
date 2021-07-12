@@ -47,6 +47,7 @@ const constants = {
             value: "action"
         },
     ],
+    ROOT_PATH: "http://localhost:3000/images/"
 };
 
 export default constants;

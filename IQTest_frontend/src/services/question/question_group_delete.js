@@ -1,6 +1,7 @@
 import { bus } from "/src/main";
+// import $ from  'jquery'
 export default {
-    name: 'QuestionDeleteAlert',
+    name: 'QuestionGroupDeleteAlert',
     data() {
         return {
             result: false
@@ -9,7 +10,8 @@ export default {
     // To use props, they must be declared
     props: {
         visible: Boolean,
-        questionDetail: Object
+        qstGroup: String,
+        qstType: String
     },
     computed: {
         isVisible() {
@@ -20,17 +22,17 @@ export default {
         closeDeleteAlert() {
             this.$emit('click')
         },
-        async deleteQuestion() {
-            await this.$store.dispatch('deleteQuestion', this.questionDetail.id)
-            const state = this.$store.state.QuestionDeleteStore
+        async deleteGroup() {
+            await this.$store.dispatch('deleteGroup', {
+                qstGroup: this.qstGroup,
+                qstType: this.qstType
+            })
+            const state = this.$store.state.QuestionGroupDeleteStore
             this.result = state.result
             if (this.result) {
                 this.closeDeleteAlert()
-                bus.$emit("qstInfo", {
-                    qstGroup: this.questionDetail.question_group,
-                    qstType: this.questionDetail.question_type
-                })
                 bus.$emit("refreshSideBar")
+                this.$router.push({path: "/"})
             }
         }
     }
