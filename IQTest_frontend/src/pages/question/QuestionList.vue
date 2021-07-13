@@ -18,35 +18,35 @@
             <template v-slot:[`item.answer_choice.choice1`]="{ item }">
               <img
                 v-if="isImageChoice(item) && item.answer_choice.choice1"
-                :src="getPath(item.answer_choice.choice1)"
+                :src="getPath(item.answer_choice.choice1, item)"
               />
               <span v-else> {{ item.answer_choice.choice1 }} </span>
             </template>
             <template v-slot:[`item.answer_choice.choice2`]="{ item }">
               <img
                 v-if="isImageChoice(item) && item.answer_choice.choice2"
-                :src="getPath(item.answer_choice.choice2)"
+                :src="getPath(item.answer_choice.choice2, item)"
               />
               <span v-else> {{ item.answer_choice.choice2 }} </span>
             </template>
             <template v-slot:[`item.answer_choice.choice3`]="{ item }">
               <img
                 v-if="isImageChoice(item) && item.answer_choice.choice3"
-                :src="getPath(item.answer_choice.choice3)"
+                :src="getPath(item.answer_choice.choice3, item)"
               />
               <span v-else> {{ item.answer_choice.choice3 }} </span>
             </template>
             <template v-slot:[`item.answer_choice.choice4`]="{ item }">
               <img
                 v-if="isImageChoice(item) && item.answer_choice.choice4"
-                :src="getPath(item.answer_choice.choice4)"
+                :src="getPath(item.answer_choice.choice4, item)"
               />
               <span v-else> {{ item.answer_choice.choice4 }} </span>
             </template>
             <template v-slot:[`item.answer_choice.choice5`]="{ item }">
               <img
                 v-if="isImageChoice(item) && item.answer_choice.choice5"
-                :src="getPath(item.answer_choice.choice5)"
+                :src="getPath(item.answer_choice.choice5, item)"
               />
               <span v-else> {{ item.answer_choice.choice5 }} </span>
             </template>

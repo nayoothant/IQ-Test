@@ -18,16 +18,17 @@ export default {
         })
     },
     methods: {
-        setQuestionInfo(question) {
-            bus.$emit("qstInfo", {
-                qstGroup: question.question_group,
-                qstType: question.question_type
-            })       
+        setQuestionInfo(question) {   
             if(this.$router.currentRoute.fullPath !== "/questionList") {
                 this.$router.push({name: 'question-list', params: {
                     qstGroup: question.question_group,
                     qstType: question.question_type
                 }})
+            } else {
+                bus.$emit("qstInfo", {
+                    qstGroup: question.question_group,
+                    qstType: question.question_type
+                })    
             }
         },
         async getQuestionList() {

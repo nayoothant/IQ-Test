@@ -47,8 +47,12 @@ export default {
                 console.log(err);
             });
         },
-        getPath(item) {
-            return constants.ROOT_PATH + this.qstGroup + '_' + this.qstType + '/' + item
+        getPath(value, item) {
+            if(item.question_group != this.qstGroup || item.question_type != this.qstType) {
+                return ''
+            } else {                
+                return constants.ROOT_PATH + this.qstGroup + '_' + this.qstType + '/' + value   
+            }         
         },
         showQuestionDetail(row, column) {
             this.questionDetail = column.item;
@@ -87,10 +91,12 @@ export default {
         }
     },
     created() {
+        this.getQuestionInfo(this.$route.params)
+    },
+    mounted() {
         bus.$on("qstInfo", (payload) => {
             this.getQuestionInfo(payload)
         })
-        this.getQuestionInfo(this.$route.params)
-    },
+    }
 };
 
