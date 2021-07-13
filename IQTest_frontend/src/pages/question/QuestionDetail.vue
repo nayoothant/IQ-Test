@@ -1,5 +1,5 @@
 <template>
-<div id="myModal" class="modal" v-if='isVisible'>
+<v-dialog v-model='isVisible' @click:outside="closeButtonClick()" v-if="isVisible" width="50%">
 
   <!-- Modal content -->
   <div class="modal-header">
@@ -25,9 +25,9 @@
     <v-btn @click="goToUpdatePage">Edit</v-btn>
   </div>
 
-</div>
+</v-dialog>
 </template>
 <script src="../../services/question/question_detail.js">
 </script>
-<style scoped src="../../assets/css/pages/question/question-detail.css">
+<style scoped src="../../assets/css/pages/question/modal-popup.css">
 </style>
