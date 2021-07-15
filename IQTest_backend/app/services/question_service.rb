@@ -1,22 +1,39 @@
 class QuestionService
 
     class << self
+
+        # function: show_question_list
+        # params: 
+        # return: questions(array)
         def show_question_list
             @questions = QuestionDao.show_question_list()
         end
         
+
+        # function: get_question_type
+        # params: question_group
+        # return: questionTypes(array)
         def get_question_type(questionGroup)            
             @questionTypes = QuestionDao.get_question_type(questionGroup)       
         end
 
+        # function: get_question_by_id
+        # params: id
+        # return: question(object)
         def get_question_by_id(id)            
-            @questionTypes = QuestionDao.get_question_by_id(id)       
+            @question = QuestionDao.get_question_by_id(id)       
         end
 
+        # function: get_question_info
+        # params: questionGroup, questionType
+        # return: questions(array)
         def get_question_info(questionGroup, questionType)
             @questions = QuestionDao.get_question_info(questionGroup, questionType)
         end
 
+        # function: create_question
+        # params: qstForm
+        # return: isQuestionCreate(boolean)
         def create_question(qstForm)
             @qstNo = QuestionDao.get_max_qstNo(qstForm.qstGroup, qstForm.qstType)
             if @qstNo
@@ -38,12 +55,16 @@ class QuestionService
                 end
             end
             @question = QuestionForm.initialize(qstForm)
+            puts @question.questionNo
             if @question.valid?
                 isQuestionCreate = QuestionDao.create_question(@question)
             end
             
         end
 
+        # function: get_question_by_group
+        # params: qstForm
+        # return: isQuestionUpdate(boolean)
         def update_question(qstForm)           
             @question = QuestionDao.get_question_by_id(qstForm.id)
             dir = Constants::ROOT_DIR + qstForm.qstGroup + "_" + qstForm.qstType
@@ -68,6 +89,9 @@ class QuestionService
             end
         end
 
+        # function: delete_question
+        # params: id
+        # return: isQuestionDelete
         def delete_question(id)
             @question = QuestionDao.get_question_by_id(id)
             dir = Constants::ROOT_DIR + @question.question_group+ "_" + @question.question_type
@@ -99,6 +123,9 @@ class QuestionService
             isQuestionDelete = QuestionDao.delete_question(@question)
         end
 
+        # function: delete_group
+        # params: qstGroup, qstType
+        # return: isGroupDelete
         def delete_group(qstGroup, qstType)
             @questions = QuestionDao.get_question_info(qstGroup, qstType)
             dir = Constants::ROOT_DIR + qstGroup + "_" + qstType
@@ -110,6 +137,9 @@ class QuestionService
             end
         end
 
+        # function: update_question_group
+        # params: editForm, oldQuestion
+        # return: isGroupUpdate
         def update_question_group(editForm, oldQuestion)
             dir = Constants::ROOT_DIR
             isGroupUpdate = true
@@ -144,6 +174,13 @@ class QuestionService
                 end
             end
             isGroupUpdate = QuestionDao.update_description_and_duration(oldQuestion, editForm[:description], editForm[:duration])
+        end
+
+        # function: get_questions_group
+        # params: 
+        # return: questions(array)
+        def get_questions_group()
+            @questions = QuestionDao.get_questions_group()
         end
     end
 end

@@ -1,5 +1,5 @@
 <template>
-<v-card class="mx-auto" max-width="344">
+<v-card class="mx-auto" width="600">
     <v-card-title class="login-title">
         <span class="title font-weight-light">Login</span>
     </v-card-title>
@@ -7,7 +7,7 @@
         <v-card-text>
             <div class="login-error">{{error}}</div>
             <div class="login-input">
-                <v-text-field v-model="email" type="text" label="Email" :rules="emailRules" hide-details="auto"></v-text-field>
+                <v-text-field v-model="username" type="text" :rules="nameRules" label="Username" hide-details="auto"></v-text-field>
             </div>
             <div class="login-input">
                 <v-text-field v-model="password" type="password" label="Password" :rules="pwdRules" hide-details="auto"></v-text-field>
@@ -27,6 +27,6 @@
 <script src="../../services/user/login.js">
 </script>
 
-<style scoped src="../../assets/css/pages/user/login..css">
+<style scoped src="../../assets/css/pages/user/login.css">
 
 </style>

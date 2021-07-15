@@ -26,10 +26,9 @@ new Vue({
     created() {
         axios.interceptors.request.use(
             function (config) {
-                if (store.state.user) {
-                    const tokenType = store.state.user.data.token_type;
-                    const token = store.state.user.data.access_token;
-                    if (token) config.headers.Authorization = `${tokenType} ${token}`;
+                if (store.state.admin) {
+                    const token = store.state.admin.token;
+                    if (token) config.headers.Authorization = `${token}`;
                 }
                 return config;
             },

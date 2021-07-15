@@ -14,14 +14,22 @@ export default {
                     value: "email",
                 },
                 {
-                    text: "Password",
-                    value: "password",
+                    text: "Name",
+                    value: "name",
+                },
+                {
+                    text: "Phone",
+                    value: "phone",
+                },
+                {
+                    text: "Mark",
+                    value: "marks"
                 }
             ],
         };
     },
     mounted() {
-        
+
         this.$axios
             .get("/users")
             .then((response) => {

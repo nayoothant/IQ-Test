@@ -15,55 +15,94 @@ Vue.use(Vuex);
 axios.defaults.baseURL = process.env.VUE_APP_SERVER;
 
 const modules = {
-    SideBarStore,
-    QuestionListStore,
-    QuestionCreateStore,
-    QuestionUpdateStore,
-    QuestionDeleteStore,
-    QuestionGroupEditStore,
-    QuestionGroupDeleteStore
-  }
-
+  SideBarStore,
+  QuestionListStore,
+  QuestionCreateStore,
+  QuestionUpdateStore,
+  QuestionDeleteStore,
+  QuestionGroupEditStore,
+  QuestionGroupDeleteStore
+}
 export default new Vuex.Store({
-    modules,
-    state: {
-        user: null,
+  modules,
+  state: {
+    admin: null,
+    user: null,
+    answer: [],
+    error: ''
+  },
+  mutations: {
+    setUserData(state, userData) {
+      state.user = userData;
     },
-    mutations: {
-        setUserData(state, userData) {
-            state.user = userData;
-        },
+    setAdminData(state, adminData) {
+      state.admin = adminData;
     },
-    actions: {
-        login({ commit }, credentials) {
-            return axios.post("/auth/login", credentials).then(({ data }) => {
-                commit("setUserData", data);
-            });
-        },
-        logout({ commit }, credentials) {
-            return axios.post("/auth/logout", credentials).then(() => {
-                commit("setUserData", null);
-            });
-        },
+    setAnswerData(state, answerData) {
+      state.answer = answerData;
     },
-    getters: {
-        isLoggedIn: (state) => !!state.user,
-        userType: (state) => {
-            if (state.user && state.user.data.user_type) {
-                return state.user.data.user_type;
-            }
-            return -1;
-        },
-        userId: (state) => {
-            if (state.user && state.user.data.user_id) {
-                return state.user.data.user_id;
-            }
-        },
-        userName: (state) => {
-            if (state.user && state.user.data.user_name) {
-                return state.user.data.user_name;
-            }
-        },
+    setErrorMessage(state, errorMsg) {
+      state.error = errorMsg;
     },
-    plugins: [createPersistedState()],
+  },
+  actions: {
+    login({ commit }, credentials) {
+      return axios.post("admins/login", credentials).then(({ data }) => {
+        if (data.error) {
+          commit("setErrorMessage", data.error)
+        } else {
+          commit("setAdminData", data);
+          commit("setErrorMessage", "")
+        }
+      });
+    },
+    clearAdminData({ commit }) {
+      commit("setAdminData", null);
+    },
+    logout({ commit }, credentials) {
+      return axios.post("/logout", credentials).then(() => {
+        commit("setAdminData", null);
+      });
+    },
+    create({ commit }, credentials) {
+      return axios.post("/users", credentials).then(({ data }) => {
+        if (data.errorMessage) {
+          commit("setErrorMessage", data.errorMessage)
+        } else {
+          commit("setErrorMessage", '')
+          commit("setUserData", data);
+        }
+      });
+    },
+    async storeAnswer({ commit }, credentials) {
+      await axios.post("answers/store_answers", credentials).then(({ data }) => {
+        commit("setAnswerData", data);
+      });
+    },
+    async updateUser({ commit }, credentials) {
+      await axios.put(`users/${credentials.userId}`, credentials).then(({ data }) => {
+        commit("setAnswerData", data);
+      });
+    },
+  },
+  getters: {
+    isLoggedIn: (state) => !!state.admin,
+    userType: (state) => {
+      if (state.user && state.user.data.user_type) {
+        return state.user.data.user_type;
+      }
+      return -1;
+    },
+    userId: (state) => {
+      if (state.user && state.user.data.user_id) {
+        return state.user.data.user_id;
+      }
+    },
+    userName: (state) => {
+      if (state.user && state.user.data.user_name) {
+        return state.user.data.user_name;
+      }
+    },
+  },
+  plugins: [createPersistedState()],
 });

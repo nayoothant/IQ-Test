@@ -1,5 +1,22 @@
 <template>
-  <div class='sidenav'>
+  <v-card color="lighten-4" flat tile>
+<v-toolbar dark color="primary" tile>
+            <v-container>
+                <v-row>
+                    <v-toolbar-title class="title">
+                        <span>{{ title }}</span>
+                    </v-toolbar-title>
+                    <div class="route-links">
+                      <router-link class="route-link" :to="{ name: 'user-list' }">User List</router-link>
+                    </div>
+                    <v-spacer></v-spacer>
+                    <div class="route-links">
+                        <router-link class="route-link" :to="{ name: 'login' }">Log Out</router-link>
+                    </div>
+                </v-row>
+            </v-container>
+        </v-toolbar>
+  <div class='sidenav' color="primary">
     <div v-for="item in questionList" :key="item.id">
       <button class="dropdown-btn"> 
         {{ item.qstGroup }}
@@ -11,46 +28,10 @@
       </div>
     </div>
   </div>
+  </v-card>
 </template>
-<style>
-.sidenav{
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #BEBEBE;
-  overflow-x: hidden;
-  padding-top: 20px;
-  color: #818181;
-}
-.sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-.sidenav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
-}
-.dropdown-container {
-  display: none;
-  background-color: #BEBEBE;
-  padding-left: 8px;
-}
-.active {
-  background-color: green;
-  color: white;
-}
-</style>
 <script src="../services/components/sidebar.js">
 
 </script>
+<style scoped src="../assets/css/components/sidebar.css">
+</style>

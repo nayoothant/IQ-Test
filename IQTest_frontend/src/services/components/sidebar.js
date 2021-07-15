@@ -1,13 +1,20 @@
+import constants from "../../constants";
 import { bus } from "/src/main";
+import $ from 'jquery'
+import router from "/src/router/index"
 export default {
     name: 'SideBar',
     data() {
         return {
-            questionList: []
+            questionList: [],
+            title: constants.APP_TITLE
         }        
     },
     async created() {        
         await this.getQuestionList();
+        $(window).on('beforeunload', function(){
+            router.push({ name: "create-user"})
+        });
 
     },
     async mounted() {

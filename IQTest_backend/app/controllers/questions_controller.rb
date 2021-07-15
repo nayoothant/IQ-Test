@@ -1,5 +1,9 @@
 class QuestionsController < ApplicationController
-
+    before_action :authorized, except: [:get_questions]
+    
+    # function : question_list
+    # get question list
+    # params : 
     def question_list
         objArray = []
         @questions = QuestionService.show_question_list()
@@ -12,6 +16,9 @@ class QuestionsController < ApplicationController
         render json: objArray
     end
 
+    # function : get_question_info
+    # get question info
+    # params : questionGroup, questionType
     def get_question_info
         @qstGroup = params[:questionGroup]
         @qstType = params[:questionType]
@@ -19,12 +26,18 @@ class QuestionsController < ApplicationController
         render json: @questionTypes
     end
 
+    # function : get_question_type
+    # get question type
+    # params : qstGroup
     def get_question_type
         @qstGroup = params[:qstGroup]
         @questionTypes = QuestionService.get_question_type(@qstGroup)
         render json: @questionTypes
     end
 
+    # function : create_question
+    # save questions
+    # params : question_form_params
     def create_question
         @qstForm = QuestionForm.new(question_form_params)
         if @qstForm.valid?
@@ -33,6 +46,9 @@ class QuestionsController < ApplicationController
         end
     end
 
+    # function : update_question
+    # update questions
+    # params : question_form_params
     def update_question        
         @qstForm = QuestionForm.new(question_form_params)
         if @qstForm.valid?
@@ -41,11 +57,17 @@ class QuestionsController < ApplicationController
         end
     end
 
+    # function : delete_question
+    # delete questions
+    # params : id
     def delete_question
         isQuestionDelete = QuestionService.delete_question(params[:id])
         render json: { result: isQuestionDelete }
     end
 
+    # function : delete_group
+    # delete group
+    # params : qstGroup, qstType
     def delete_group
         @qstGroup = params[:qstGroup]
         @qstType = params[:qstType]
@@ -53,6 +75,9 @@ class QuestionsController < ApplicationController
         render json: { result: @isGroupDelete }
     end
 
+    # function : update_question_group
+    # update question group
+    # params : qstGroupEditForm
     def update_question_group
         @editForm=params[:qstGroupEditForm]
         isGroupUpdate = false        
@@ -67,6 +92,13 @@ class QuestionsController < ApplicationController
             isGroupUpdate = QuestionService.update_question_group(@editForm, @oldQuestion)
             render json: {result: isGroupUpdate, message: isGroupUpdate ? Messages::SUCCESSFUL_UPDATE_MESSAGE : Messages::UPDATE_ERROR_MESSAGE}
         end
+    end
+    
+    # function : get_questions
+    # get question groups
+    # params : 
+    def get_questions
+        render json: QuestionService.get_questions_group()
     end
 
     private

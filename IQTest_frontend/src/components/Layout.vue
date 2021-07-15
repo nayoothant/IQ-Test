@@ -1,11 +1,12 @@
 <template>
     <v-app>
-    <SideBar/>
+    <SideBar v-if="isLoggedIn" />
         <router-view></router-view>
     </v-app>
+
 </template>
+
 <script src="../services/components/layout.js">
 
 </script>
-
 

@@ -1,0 +1,51 @@
+.route-link {
+    color: white !important;
+    padding: 0px 5px;
+}
+
+.route-links {
+    margin: auto;
+    padding: 0px 5px;
+}
+
+.title {
+    margin: auto;
+}
+.sidenav{
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  margin-top: 64px;
+  left: 0;
+  background-color: #0000FF;
+  overflow-x: hidden;
+  padding-top: 20px;
+  color: #818181;
+}
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+.dropdown-container {
+  display: none;
+  background-color: #0000FF;
+  padding-left: 8px;
+}
+.active {
+  background-color: #BEBEBE;
+  color: white;
+}

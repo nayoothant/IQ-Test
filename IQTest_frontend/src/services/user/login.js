@@ -1,17 +1,12 @@
 export default {
     data: () => ({
         valid: true,
-        email: "",
+        username: "",
         password: "",
-        error: "",
-
-        // validation rules for user email.
-        emailRules: [
-            value => !!value || "The email field is required.",
-            value => /.+@.+\..+/.test(value) || "E-mail must be valid."
-        ],
+        error: '',
 
         // validation rules for password.
+        nameRules: [value => !!value || "The username field is required."],
         pwdRules: [value => !!value || "The password field is required."]
     }),
     methods: {
@@ -22,17 +17,26 @@ export default {
         login() {
             this.$store
                 .dispatch("login", {
-                    email: this.email,
+                    username: this.username,
                     password: this.password
                 })
                 .then(() => {
-                    this.error = "";
-                    this.$router.push({ name: "post-list" });
+                    let state = this.$store.state
+                    if(state.error) {                        
+                        this.error = state.error;
+                    } else {
+                        this.error = ''
+                        this.$router.push({ name: "question-groups" });
+                    }
+                   
                 })
                 .catch(err => {
                     this.error = err.response.data.errors.message;
                     console.log(err);
                 });
         }
+    },
+    created() {
+        this.$store.dispatch("clearAdminData")
     }
 };
