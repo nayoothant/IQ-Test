@@ -1,5 +1,6 @@
 <template>
     <v-app>
+    <NavBar v-if="isLoggedIn" />
     <SideBar v-if="isLoggedIn" />
         <router-view></router-view>
     </v-app>

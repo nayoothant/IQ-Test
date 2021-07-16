@@ -1,10 +1,12 @@
 import { mapGetters } from "vuex";
 import SideBar from "/src/components/SideBar";
 import constants from "../../constants";
+import NavBar from "/src/components/NavBar";
 
 export default {
     components: {
-        SideBar
+        SideBar,
+        NavBar
     },
     data() {
         return {
