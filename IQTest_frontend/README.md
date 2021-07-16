@@ -1,4 +1,4 @@
-# vue-pwa-frame
+# IQ Test Frontend
 
 ## Project setup
 ```
